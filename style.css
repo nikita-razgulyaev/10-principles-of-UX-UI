@@ -4,9 +4,20 @@
   --background-color: #F8F8F8;
   --text-color: #333333;
   --light-text-color: #777777;
+  --background-comments: #F8F8F8;
   --box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   --border-radius: 8px;
   --font-family: 'Roboto', sans-serif;
+}
+
+:root[data-theme='dark'] {
+  --primary-color: #6200EE;
+  --secondary-color: #a36be8;
+  --background-color: #121212;
+  --text-color: #FFFFFF;
+  --light-text-color: #717171;
+  --background-comments: #F8F8F8;
+  --box-shadow: 0px 4px 12px rgba(255, 255, 255, 0.1);
 }
 
 body {
@@ -16,15 +27,90 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+#theme-toggle {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 24px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  transition: color 0.3s ease;
+}
+
+#comments {
+  background-color: var(--background-comments);
+  box-shadow: var(--box-shadow);
+}
+
+.comment {
+  border-bottom: 1px solid var(--light-text-color);
+}
+
+.comment .comment-author,
+.comment .comment-text {
+  color: var(--text-color);
+}
+
+#comment-form label {
+  color: var(--text-color);
+}
+
+#comment-form input[type="text"],
+#comment-form textarea {
+  border: 1px solid var(--light-text-color);
+  color: var(--text-color);
+  background-color: var(--background-comments);
+}
 
 header {
-  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
   color: #fff;
   padding: 60px 20px;
   text-align: center;
   margin-bottom: 40px;
+  height: 250px;
+  width: 100%;
+  background: linear-gradient(149deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  animation: gradient 4s infinite linear;
+  background-size: 400%;
+}
+
+html[data-theme='dark'] header {
+  background: linear-gradient(149deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  animation: gradient-dark 4s infinite linear;
+  background-size: 400%;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 80% 0%;
+  }
+
+  50% {
+    background-position: 10% 100%;
+  }
+
+  100% {
+    background-position: 80% 0%;
+  }
+}
+
+@keyframes gradient-dark {
+  0% {
+    background-position: 80% 0%;
+  }
+
+  50% {
+    background-position: 10% 100%;
+  }
+
+  100% {
+    background-position: 80% 0%;
+  }
 }
 
 header h1 {
@@ -51,9 +137,9 @@ header p {
 }
 
 .cta-button:hover {
-  background-color: rgba(255, 255, 255, 0.8);
+  transform: scale(1.05);
+  transition: transform 0.2s ease-in-out;
 }
-
 
 #hacks {
   padding: 40px 20px;
@@ -76,16 +162,16 @@ header p {
 }
 
 .hack-section.even .hack-content {
-  align-items: flex-start; 
-  text-align: left; 
+  align-items: flex-start;
+  text-align: left;
 }
 
 .hack-section.even .hack-content .hack-number {
-  text-align: center !important; 
+  text-align: center !important;
 }
 
 .hack-section.even .hack-content h3 {
-  text-align: left; 
+  text-align: left;
 }
 
 .hack-image {
@@ -130,8 +216,8 @@ header p {
 }
 
 footer {
-  background-color: var(--text-color);
-  color: #fff;
+  background-color: var(--background-color);
+  color: var(--text-color);
   text-align: center;
   padding: 20px;
   font-size: 0.9em;
@@ -181,12 +267,10 @@ footer {
   }
 }
 
-
 #comments {
   padding: 40px 20px;
   max-width: 1200px;
   margin: 0 auto;
-  background-color: #fff;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   margin-bottom: 40px;
@@ -201,13 +285,13 @@ footer {
 
 #comment-list {
   margin-bottom: 20px;
-  padding: 0 10px; 
+  padding: 0 10px;
 }
 
 .comment {
   border-bottom: 1px solid #eee;
   padding: 15px 0;
-  margin: 0 10px; 
+  margin: 0 10px;
 }
 
 .comment:last-child {
@@ -219,19 +303,19 @@ footer {
   margin-bottom: 5px;
   color: var(--text-color);
   display: flex;
-  align-items: center; 
+  align-items: center;
 }
 
 .comment .comment-date {
   font-size: 0.8em;
   color: var(--light-text-color);
-  margin-left: auto; 
+  margin-left: auto;
 }
 
 .comment .comment-text {
   line-height: 1.6;
   color: var(--text-color);
-  margin-top: 5px; 
+  margin-top: 5px;
 }
 
 #comments h3 {
@@ -241,7 +325,7 @@ footer {
 }
 
 #comment-form {
-  padding: 0 10px; 
+  padding: 0 10px;
 }
 
 #comment-form .form-group {
@@ -263,11 +347,11 @@ footer {
   border-radius: var(--border-radius);
   font-family: var(--font-family);
   font-size: 1em;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
 #comment-form textarea {
-  resize: vertical; 
+  resize: vertical;
 }
 
 #comment-form button[type="submit"] {
@@ -282,20 +366,20 @@ footer {
 }
 
 #comment-form button[type="submit"]:hover {
-  background-color: #03a695;
+  background-color: var(--primary-color);
 }
 
 
 @media (max-width: 768px) {
   #comments {
-      padding: 20px 10px; 
+    padding: 20px 10px;
   }
 
   #comments h2 {
-      font-size: 2em; 
+    font-size: 2em;
   }
 
   #comment-form button[type="submit"] {
-      width: 100%; 
+    width: 100%;
   }
 }
